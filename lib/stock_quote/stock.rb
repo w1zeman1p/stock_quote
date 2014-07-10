@@ -159,9 +159,9 @@ module StockQuote
           start += 365
         rescue NoDataForStockError => inner_error
           start += 365
-          return inner_error if finish - start < 0
+          return inner_error if finish - start <= 0
         end
-      end until finish - start < 0
+      end until finish - start <= 0
 
       return !!(format=='json') ? { 'quote' => quotes } : quotes
     end
