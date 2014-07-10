@@ -146,12 +146,12 @@ module StockQuote
       start, finish = to_date(start_date), to_date(end_date)
       raise ArgumentError.new('start dt after end dt') if start > finish
 
-      quotes = !!(format == 'json') ? {} : []
+      quotes = []
       begin
         begin
           quote = quote(symbol, start, min_date(finish, start + 365), select, format)
           if !!(format == 'json')
-            quotes = quotes.merge(quote['quote'])
+            quotes += quote['quote']
           else
             quotes += Array(quote)
           end
